@@ -1,0 +1,40 @@
+version: '3'
+services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  mysql:
+    build: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: iam_root
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/world.sql:/docker-entrypoint-initdb.d/world.sql  #sample data set world
+      - ./mysql/dd-agent.sql:/docker-entrypoint-initdb.d/dd-agent.sql  #sample data set world
+  datadog:
+    build: datadog
+    links:
+     - mysql
+     - redis
+    environment:
+      - API_KEY=
+      - SD_BACKEND=docker
+      - NON_LOCAL_TRAFFIC=false
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+  #API Create Dash containers :)
+  python-mysql:
+    build: python-mysql
+    environment:
+      - API_KEY=
+      - APP_KEY=
+  python-redis:
+    build: python-redis
+    environment:
+      - API_KEY=
+      - APP_KEY=
+  
