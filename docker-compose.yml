@@ -1,20 +1,50 @@
 version: '3'
+
 services:
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.0.1
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      
   redis:
     image: redis
+    container_name: redis_cache
     ports:
       - "6379:6379"
+      
   mysql:
     build: mysql
+    container_name: mysql_db
     environment:
       MYSQL_ROOT_PASSWORD: iam_root
     ports:
       - "3306:3306"
     volumes:
       - ./mysql/world.sql:/docker-entrypoint-initdb.d/world.sql  #sample data set world
-      - ./mysql/dd-agent.sql:/docker-entrypoint-initdb.d/dd-agent.sql # create dd-agent user
+      - ./mysql/dd-agent.sql:/docker-entrypoint-initdb.d/dd-agent.sql 
+      
+  postgres:
+    build: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/pgdduser.sql:/docker-entrypoint-initdb.d/pgdduser.sql # create dd user
+      - ./postgres/dellstore2-normal-1.0.sql:/docker-entrypoint-initdb.d/dellstore2-normal-1.0.sql #sample
+        
   datadog:
     build: datadog
+    container_name: datadog_agent
     links:
      - mysql
      - redis
@@ -22,19 +52,17 @@ services:
       - API_KEY=
       - SD_BACKEND=docker
       - NON_LOCAL_TRAFFIC=false
+      - ES_HOST=elasticsearch
+      - APACHE_HOST=apache_httpd
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /proc/:/host/proc/:ro
       - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
-  #API Create Dash containers :)
-  python-mysql:
-    build: python-mysql
+      
+# API Create Dash containers :)
+  api-helper:
+    build: api-dash-creator
+    container_name: api_dash_writer
     environment:
       - API_KEY=
       - APP_KEY=
-  python-redis:
-    build: python-redis
-    environment:
-      - API_KEY=
-      - APP_KEY=
-  
