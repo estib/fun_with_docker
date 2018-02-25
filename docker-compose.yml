@@ -72,10 +72,10 @@ services:
       - /proc/:/host/proc/:ro
       - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
       
-# API Create Dash containers :)
-#  api-helper:
-#    build: api-dash-creator
-#    container_name: api_dash_writer
-#    environment:
-#      - API_KEY=
-#      - APP_KEY=
+# API Create Dash containers 
+  api-helper:
+    build: api-dash-creator
+    container_name: api_dash_writer
+    environment:
+      - API_KEY=
+      - APP_KEY=
