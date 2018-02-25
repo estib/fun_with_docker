@@ -12,6 +12,8 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.0.1
     container_name: elasticsearch
+    networks:
+      - doraemon
     ports:
       - "9200:9200"
     ulimits:
@@ -26,12 +28,16 @@ services:
   redis:
     image: redis
     container_name: redis_cache
+    networks:
+      - doraemon
     ports:
       - "6379:6379"
       
   mysql:
     build: mysql
     container_name: mysql_db
+    networks:
+      - doraemon
     environment:
       MYSQL_ROOT_PASSWORD: iam_root
     ports:
@@ -43,6 +49,8 @@ services:
   postgres:
     build: postgres
     container_name: postgres
+    networks:
+      - doraemon
     ports:
       - "5432:5432"
     volumes:
@@ -52,9 +60,8 @@ services:
   datadog:
     build: datadog
     container_name: datadog_agent
-    links:
-     - mysql
-     - redis
+    networks:
+      - doraemon
     environment:
       - API_KEY=
       - SD_BACKEND=docker
@@ -66,9 +73,9 @@ services:
       - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
       
 # API Create Dash containers :)
-  api-helper:
-    build: api-dash-creator
-    container_name: api_dash_writer
-    environment:
-      - API_KEY=
-      - APP_KEY=
+#  api-helper:
+#    build: api-dash-creator
+#    container_name: api_dash_writer
+#    environment:
+#      - API_KEY=
+#      - APP_KEY=
