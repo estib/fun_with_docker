@@ -1,5 +1,5 @@
 # fun_with_docker
-This project allows you to quickly set up ElasticSearch, MySQL, Postgres, Redis, and the DD-Agent containers
+This project allows you to quickly set up ElasticSearch, MySQL, NGINX, Postgres, Redis, and the DD-Agent containers
 
 First and foremost - download Docker compose if you haven't already (If you've got Docker on Mac OS, it comes with compose)
 https://docs.docker.com/compose/install/#install-compose
