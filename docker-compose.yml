@@ -2,6 +2,13 @@ version: '3'
 
 services:
 
+  nginx:
+    build: nginx
+    container_name: nginx
+    networks:
+      - doraemon
+    restart: always
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.0.1
     container_name: elasticsearch
@@ -53,7 +60,6 @@ services:
       - SD_BACKEND=docker
       - NON_LOCAL_TRAFFIC=false
       - ES_HOST=elasticsearch
-      - APACHE_HOST=apache_httpd
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /proc/:/host/proc/:ro
