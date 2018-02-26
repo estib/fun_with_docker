@@ -12,3 +12,4 @@ Then you'll want to update the docker-compose.yml file with your API and APP key
 Then, just sit back as the images pull, the metrics for the above containers start sending, and the ES, MySQL, PG, and Redis Timeboards are automatically created by the "api helper" container :) (the timeboards are super basic at the moment, sorry!)
 
 * The helper containers are intended to perform a single function per container. The ubuntu_siege one utilizes Siege to stress test a web server container (in this repo's case, it's the NGINX one), and the ubuntu_mysql one queries the MySQL server container repeatedly to simulate SELECT statements going into the MySQL container on the same network as the ubuntu_mysql one.
+This enables some activity in certain metrics, rather than just a boring flat line.
