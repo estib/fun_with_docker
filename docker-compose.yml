@@ -72,6 +72,14 @@ services:
       - /proc/:/host/proc/:ro
       - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
       
+  flask:
+    build: flask
+    container_name: flask
+    networks:
+      - doraemon
+    ports:
+      - "5000:5000"
+      
 # API Create Dash containers 
   api-helper:
     build: api-dash-creator
