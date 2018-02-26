@@ -45,6 +45,7 @@ services:
     volumes:
       - ./mysql/world.sql:/docker-entrypoint-initdb.d/world.sql  #sample data set world
       - ./mysql/dd-agent.sql:/docker-entrypoint-initdb.d/dd-agent.sql 
+      - ./mysql/ubuntu_helper.sql:/docker-entrypoint-initdb.d/ubuntu_helper.sql # Set up ubuntu helper
       
   postgres:
     build: postgres
