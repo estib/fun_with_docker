@@ -1,5 +1,5 @@
 # fun_with_docker
-This project allows you to quickly set up ElasticSearch, MySQL, NGINX, Postgres, Redis, and the DD-Agent containers (along with two "helper" containers)*
+This project allows you to quickly set up ElasticSearch, Flask, MySQL, NGINX, Postgres, Redis and the DD-Agent containers (along with two "helper" containers)*
 
 First and foremost - download Docker compose if you haven't already (If you've got Docker on Mac OS, it comes with compose)
 https://docs.docker.com/compose/install/#install-compose
@@ -13,3 +13,4 @@ Then, just sit back as the images pull, the metrics for the above containers sta
 
 * The helper containers are intended to perform a single function per container. The ubuntu_siege one utilizes Siege to stress test a web server container (in this repo's case, it's the NGINX one), and the ubuntu_mysql one queries the MySQL server container repeatedly to simulate SELECT statements going into the MySQL container on the same network as the ubuntu_mysql one.
 This enables some activity in certain metrics, rather than just a boring flat line.
+
