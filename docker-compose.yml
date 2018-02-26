@@ -80,6 +80,20 @@ services:
     ports:
       - "5000:5000"
       
+  #Leverages siege in an ubuntu base container to ping a given web server (in this case it's NGINX)    
+  ubuntu_siege:
+    build: ubuntu_siege
+    container_name: ubuntu_siege
+    networks:
+      - doraemon
+  
+  #Leverages MySQL client to query a given mysql server (SELECT only at the moment)   
+  ubuntu_mysql:
+    build: ubuntu_mysql
+    container_name: ubuntu_mysql
+    networks:
+      - doraemon
+      
 # API Create Dash containers 
   api-helper:
     build: api-dash-creator
