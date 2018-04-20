@@ -1,0 +1,40 @@
+init_config:
+
+instances:
+  [{}]
+
+logs:
+    - type: docker
+      image: elasticsearch:6.0.1
+      source: elastic
+      service: elastic
+
+    - type: docker
+      image: mysql
+      source: mysql
+      service: mysql
+
+    - type: docker
+      image: nginx
+      source: nginx
+      service: nginx
+
+    - type: docker
+      image: redis
+      source: redisdb
+      service: redisdb
+
+    - type: docker
+      image: postgres
+      source: postgres
+      service: postgres
+
+    - type: docker
+      image: python
+      source: python
+      service: flask
+
+    - type: docker
+      image: ubuntu:16.04
+      source: python
+      service: python

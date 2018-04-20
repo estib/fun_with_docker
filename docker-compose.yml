@@ -68,10 +68,13 @@ services:
       - SD_BACKEND=docker
       - NON_LOCAL_TRAFFIC=false
       - ES_HOST=elasticsearch
+      - DD_LOGS_ENABLED=true
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /proc/:/host/proc/:ro
       - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+      - /opt/datadog-agent/run:/opt/datadog-agent/run:rw
+      - /opt/datadog-agent/conf.d:/conf.d:ro
       
   flask:
     build: flask
