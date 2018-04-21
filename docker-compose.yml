@@ -64,7 +64,8 @@ services:
     networks:
       - doraemon
     environment:
-      - API_KEY=
+      - DD_API_KEY=
+      - DD_HOSTNAME=
       - SD_BACKEND=docker
       - NON_LOCAL_TRAFFIC=false
       - ES_HOST=elasticsearch

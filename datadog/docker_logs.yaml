@@ -6,35 +6,45 @@ instances:
 logs:
     - type: docker
       image: elasticsearch:6.0.1
-      source: elastic
-      service: elastic
+      source: elasticsearch
+      service: elasticsearch
 
     - type: docker
-      image: mysql
+      image: fun with_docker_mysql
       source: mysql
       service: mysql
 
     - type: docker
-      image: nginx
+      image: fun_with_docker_nginx
       source: nginx
       service: nginx
 
     - type: docker
       image: redis
-      source: redisdb
-      service: redisdb
+      source: redis
+      service: redis
 
     - type: docker
-      image: postgres
-      source: postgres
-      service: postgres
+      image: fun_with_docker_postgres
+      source: postgresql
+      service: postgresql
+      log_processing_rules:
+         - type: multi_line
+           pattern: \d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])
+           name: new_log_start_with_date
 
     - type: docker
-      image: python
+      image: fun_with_docker_flask
       source: python
       service: flask
 
     - type: docker
-      image: ubuntu:16.04
+      image: fun_with_docker_ubuntu_siege
       source: python
-      service: python
+      service: siege
+
+    - type: docker
+      image: fun_with_docker_ubuntu_mysql
+      source: python
+      service: mysql-client
+
