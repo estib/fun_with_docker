@@ -76,6 +76,7 @@ services:
       - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
       - /opt/datadog-agent/run:/opt/datadog-agent/run:rw
       - /opt/datadog-agent/conf.d:/conf.d:ro
+      # - docker_logs.yaml:/conf.d/docker_logs.d/conf.yaml
       
   flask:
     build: flask

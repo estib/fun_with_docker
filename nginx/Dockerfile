@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:1.12
 
 # ADD status.conf /etc/nginx/conf.d/status.conf
 # ADD logs.conf /etc/nginx/conf.d/logs.conf
