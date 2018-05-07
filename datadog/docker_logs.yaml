@@ -10,12 +10,12 @@ logs:
       service: elasticsearch
 
     - type: docker
-      image: fun with_docker_mysql
+      image: mysql
       source: mysql
       service: mysql
 
     - type: docker
-      image: fun_with_docker_nginx
+      image: nginx
       source: nginx
       service: nginx
 
@@ -25,7 +25,7 @@ logs:
       service: redis
 
     - type: docker
-      image: fun_with_docker_postgres
+      image: postgres
       source: postgresql
       service: postgresql
       log_processing_rules:
@@ -34,17 +34,20 @@ logs:
            name: new_log_start_with_date
 
     - type: docker
-      image: fun_with_docker_flask
+      image: flask
       source: python
       service: flask
 
     - type: docker
-      image: fun_with_docker_ubuntu_siege
+      image: account_keeper_nginx_stress_test
       source: python
       service: siege
 
     - type: docker
-      image: fun_with_docker_ubuntu_mysql
+      image: account_keeper_mysql_stress_test
       source: python
       service: mysql-client
-
+      log_processing_rules:
+        - type: include_at_match
+          name: only_take_mysql_logs
+          pattern: mysql:.*

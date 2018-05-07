@@ -4,7 +4,8 @@ services:
 
   nginx:
     build: nginx
-    container_name: nginx
+    image: nginx
+    container_name: account_keeper_nginx
     networks:
       - doraemon
     restart: always
@@ -27,7 +28,7 @@ services:
       
   redis:
     image: redis
-    container_name: redis_cache
+    container_name: account_keeper_redis_cache
     networks:
       - doraemon
     ports:
@@ -35,7 +36,8 @@ services:
       
   mysql:
     build: mysql
-    container_name: mysql_db
+    image: mysql
+    container_name: account_keeper_mysql_db
     networks:
       - doraemon
     environment:
@@ -49,7 +51,8 @@ services:
       
   postgres:
     build: postgres
-    container_name: postgres
+    image: postgres
+    container_name: account_keeper_postgres
     networks:
       - doraemon
     ports:
@@ -60,6 +63,7 @@ services:
         
   datadog:
     build: datadog
+    image: datadog-agent
     container_name: datadog_agent
     networks:
       - doraemon
@@ -80,7 +84,8 @@ services:
       
   flask:
     build: flask
-    container_name: flask
+    image: flask
+    container_name: account_keeper_flask
     networks:
       - doraemon
     ports:
@@ -89,24 +94,26 @@ services:
   #Leverages siege in an ubuntu base container to ping a given web server (in this case it's NGINX)    
   ubuntu_siege:
     build: ubuntu_siege
-    container_name: ubuntu_siege
+    image: ubuntu_siege
+    container_name: account_keeper_nginx_stress_test
     networks:
       - doraemon
   
   #Leverages MySQL client to query a given mysql server (SELECT only at the moment)   
   ubuntu_mysql:
     build: ubuntu_mysql
+    image: account_keeper_mysql_stress_test
     container_name: ubuntu_mysql
     networks:
       - doraemon
       
-# API Create Dash containers 
-  api-helper:
-    build: api-dash-creator
-    container_name: api_dash_writer
-    environment:
-      - API_KEY=
-      - APP_KEY=
+# # API Create Dash containers 
+#   api-helper:
+#     build: api-dash-creator
+#     container_name: api_dash_writer
+#     environment:
+#       - API_KEY=
+#       - APP_KEY=
       
 networks:
   doraemon:
